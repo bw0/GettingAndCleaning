@@ -49,6 +49,8 @@ The downloaded data was cleaned and reshaped as follows:
 * Prepend the activity column to the measurement data, making sure it is a factor variable
 * Prepend the subject column to the measurement data
 * Write out the dataset using write.table as dataset1.txt
+* Create a dataset that contains the average of the 66 data columns for each combination of subject (30 values) and activity (6 values). This 180 row dataframe is created using melt() and dcast() in the reshape2 package.
+* Write out the dataset using write.table as dataset2.txt
 
 ## Assumptions
 While most of the assumptions made are alluded to in the above text, they are made explicitely here:
