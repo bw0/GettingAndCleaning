@@ -1,5 +1,8 @@
   # The current working directory is the UCI HAR Dataset directory,
   # which has the test and train subdirectories beneath it
+
+  # First we load the activity labels, feature names, and the 3 train and test datasets: 
+  # (sensor reading, activities and subjects)
   activityLabels<-read.table("activity_labels.txt")
   features<-read.table("features.txt")
   testSet<-read.table("test/x_test.txt")
@@ -9,7 +12,7 @@
   trainLabels<-read.table("train/y_train.txt")
   trainSubject<-read.table("train/subject_train.txt")
   
-  # combine the test and training datasets
+  # Combine the corresponding test and training datasets
   combinedSet <- rbind(trainSet,testSet)
   combinedSubject <- rbind(trainSubject,testSubject)
   combinedLabels <- rbind(trainLabels,testLabels)
@@ -50,9 +53,9 @@
   write.table(combinedSet3, "dataset1.txt")
   
   # To produce the sum of the means and standard deviations by subject / activity we
-  # first melt the data with keys subject and activity and the rest of the 66 columns 
+  # first melt the data with ids of subject and activity and the rest of the 66 columns 
   # as variable data. Then we dcast it into 180 rows, keyed by subject/activity with
-  # 66 mean and standard deviatio variables averaged for that subject/activity combination
+  # 66 mean and standard deviatio variables averaged for each subject/activity combination
   library(reshape2)
   puddle <- melt(combinedSet3,id=c("subject", "activity"))
   table(puddle$subject,puddle$activity)
