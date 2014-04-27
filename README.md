@@ -16,6 +16,8 @@ A total of 10299 readings were collected for the 30 subjects. Each reading consi
 A full description is available at the site where the data was obtained: 
 * http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
+For more information about this dataset contact: 
+* activityrecognition@smartlab.ws
 
 ## Data Source
 The data we are using was downloaded from the course site:
@@ -46,7 +48,14 @@ The downloaded data was cleaned and reshaped as follows:
 * In order to extract only the measurements of the mean and standard deviation for each measurement, eliminated the columns that don't contain -mean() or -std() in their names, leaving 66 columns
 * Prepend the activity column to the measurement data, making sure it is a factor variable
 * Prepend the subject column to the measurement data
+* Write out the dataset using write.table as dataset1.txt
 
+## Assumptions
+While most of the assumptions made are alluded to in the above text, they are made explicitely here:
+* The data is manually downloaded from the URI provided and unzipped.
+* The script is run with the working directory being the top level unzipped directory, "UCI HAR Dataset"
+* The data used is the preprocessed (by the study authors) data in the first level subdirectories (train and test), not in their Inertial Data subdirectories. While the original authors describe the process of going from the Inertial data to the provided data sets, the details are not provided and the physics needed to rederive these calculations is beyond my capabilities (therefore not an option).
+* The subset of fields used are those that repesent the mean and standard deviation values of variables. This was interpreted as those that include "-mean()" and "-std()". This did not include those that include "-meanFreg()". This is because the former set had paired values of means and standard deviations. The latter group only included means.
 
 
 
@@ -67,17 +76,12 @@ You can also embed plots, for example:
 plot(cars)
 ```
 
-* We assume that files have been downloard and extracted to a local directory.
 * "for the purposes of this analysis, the variables were defined as..."
 *  write the table to a .txt file with check.names=FALSE
 * ?write.table   #RTFM
 * write.table(tidydata, file="./tidydata.txt", sep="\t", row.names=FALSE)
 * github link creation: https://class.coursera.org/getdata-002/forum/thread?thread_id=409
 * Replacing numbers with the activity labels: https://class.coursera.org/getdata-002/forum/thread?thread_id=385
-
-* changing column names: colnames(gdpRanks)<-foo
-* colnames(gdpRanks)[9]<-"foo"
-* append two dataframes: all.rows <- rbind(dfrm1,dfrm2)
 
 
 Checklist
