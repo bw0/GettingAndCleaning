@@ -41,11 +41,20 @@ The downloaded file was unzipped. The resulting directory structure and contents
   * subject_test.txt - 2947 rows x 1 column identifying which of the 30 subjects' data was being collected in the corresponding row in X_test.txt
   * a subdirectory, Inertial Signals, which contains the raw data collected from the phones. We are NOT using this data directly. We are using the data in the parent directory, which was derived from the raw data, as described in the project's README.txt file.
   
-## Cleaned Data Produced
-The downloaded data was cleaned and reshaped as follows:
-* The 3 pairs of training and test datasets were combined into 3 single datasets with 10299 rows each (561 columns of readings, 1 column of activities, 1 column of subjects)
-* The 561 variable names in features.txt were used to name the columns of the reading data
-* In order to extract only the measurements of the mean and standard deviation for each measurement, eliminated the columns that don't contain -mean() or -std() in their names, leaving 66 columns
+## Clean Data Produced - What and How
+The downloaded data was cleaned and reshaped as described below. More detailed documentation can be found in the comments to the script file, run_analysis.R, included in this repository. Included as part of the script, at critical points, are calls to table(), str() and head(), to verify that the expected results were produced. The specific computation steps performed are:
+* Use read.table() to load:
+  * the activity labels (activity_labels.txt)
+  * the feature names (features.txt)
+  * training measurements (./train/X_train.txt)
+  * training activities (./train/y_train.txt)
+  * training subjects (./train/subject_train.txt)
+  * test measurements (./test/X_test.txt)
+  * test activities (./test/y_test.txt)
+  * test subjects (./test/subject_test.txt)
+* Combine the 3 pairs of training and test datasets into 3 single datasets with 10299 rows each (561 columns of measurements, 1 column of activities, 1 column of subjects)
+* Name the columns of the measurement data using the 561 variable names loaded from features.txt
+* In order to extract only the mean and standard deviation variables for each measurement, eliminated the columns that don't contain -mean() or -std() in their names, leaving 66 columns
 * Prepend the activity column to the measurement data, making sure it is a factor variable
 * Prepend the subject column to the measurement data
 * Write out the dataset using write.table as dataset1.txt
@@ -58,3 +67,4 @@ While most of the assumptions made are alluded to in the above text, they are ma
 * The script is run with the working directory being the top level unzipped directory, "UCI HAR Dataset"
 * The data used is the preprocessed (by the study authors) data in the first level subdirectories (train and test), not in their Inertial Data subdirectories. While the original authors describe the process of going from the Inertial data to the provided data sets, the details are not provided and the physics needed to rederive these calculations is beyond my capabilities (therefore not an option).
 * The subset of fields used are those that repesent the mean and standard deviation values of variables. This was interpreted as those that include "-mean()" and "-std()". This did not include those that include "-meanFreg()". This is because the former set had paired values of means and standard deviations. The latter group only included means.
+* The reshape2 package is installed in the R environment (we load it with the library() command)
